@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ 'Default Page Title' }}</title>
+    {% block stylesheets %}
+        {% if app.debug %}
+            {% for css in vite_css_assets('vue/main.ts') %}
+                <link rel="stylesheet" href="{{ asset('build/' ~ css) }}">
+            {% endfor %}
+        {% else %}
+            <!-- Production: Load the compiled CSS assets from the manifest -->
+            {% for css in vite_css_assets('vue/main.ts') %}
+                <link rel="stylesheet" href="{{ asset('build/' ~ css) }}">
+            {% endfor %}
+        {% endif %}
+    {% endblock %}
+    {% block javascripts %}
+        {% if app.debug %}
+            <!-- Production: Load the compiled JS assets from the manifest -->
+            <script type="module" src="{{ vite_asset('vue/main.ts') }}"></script>
+        {% else %}
+            <!-- Production: Load the compiled JS assets from the manifest -->
+            <script type="module" src="{{ vite_asset('vue/main.ts') }}"></script>
+        {% endif %}
+    {% endblock %}
+</head>
+<body>
+<div id="app" class="min-w-full"></div>
+</body>
+</html>
