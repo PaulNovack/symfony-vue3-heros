@@ -16,15 +16,21 @@ Open 2 terminals at root of application
 
 Terminal 1:
 run: npm update
+
 run: cd tools/php-cs-fixer
+
 run: npm update
+
 run: cd ../../
+
 then run: npm run dev
 
 this will serve front end and compile assets
 
 Terminal 2:
+
 run: composer update
+
 then run: composer serve
 
 #### Using these commands to start the front and back ensures the application is running on correct ports to communicate!!
