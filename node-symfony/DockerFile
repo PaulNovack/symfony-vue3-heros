@@ -1,0 +1,41 @@
+# Base image for Node and Symfony
+FROM node:latest
+
+# Install necessary dependencies for Symfony and Node
+RUN apt-get update && apt-get install -y \
+    curl \
+    git \
+    unzip \
+    zip \
+    php-cli \
+    php-mbstring \
+    php-xml \
+    php-zip \
+    php-mysql \
+    php-curl \
+    php-intl \
+    php-gd \
+    php-bcmath \
+    php-symfony \
+    composer
+
+# Set working directory
+WORKDIR /app
+
+# Clone the Git repository
+ARG GIT_REPO
+RUN git clone $GIT_REPO .
+
+# Copy composer.json and install Symfony dependencies
+COPY composer.json ./
+RUN composer install --prefer-dist --no-progress --no-suggest
+
+# Copy package.json and install Node.js dependencies
+COPY package.json ./
+RUN npm install
+
+# Expose ports
+EXPOSE 3000 8000
+
+# Start services (modify to start Node or Symfony server)
+CMD ["sh", "-c", "npm run dev & symfony serve --port=8000"]
