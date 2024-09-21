@@ -1,5 +1,9 @@
 # Heros Application
 
+Open in  browser: http://localhost:8000 !!
+
+NOT!  http://127.0.0.1:8000
+
 To install this application clone the repo
 
 You should be running php 8.2 with all extensions required to run a symfony application for help see symfony documentation
