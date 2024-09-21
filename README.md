@@ -42,3 +42,9 @@ then run: composer serve
 ### Make sure to access the application from http://localhost:8000/ and not http://127.0.0.1:8000 or you will get CORS errors!
 
 #### The about page of the application lists some helpful developer commands for formatting, linting and running tests.
+Home
+![Alt text](./home.png)
+Heros
+![Alt text](./heros.png)
+About
+![Alt text](./about.png)
