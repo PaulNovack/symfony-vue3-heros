@@ -43,6 +43,7 @@ class MarvelApiService
         } else {
             $response = $this->client->request('GET', $this->baseUrl.'/v1/public/'.$endpoint, [
                 'query' => $params,
+                'timeout' => 60, // timeout in seconds
             ]);
         }
 
