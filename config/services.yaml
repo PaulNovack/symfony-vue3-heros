@@ -4,7 +4,8 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
-
+    marvel_public_key: '%env(MARVEL_PUBLIC_KEY)%'
+    marvel_private_key: '%env(MARVEL_PRIVATE_KEY)%'
 services:
     # default configuration for services in *this* file
     _defaults:
@@ -25,6 +26,16 @@ services:
     App\Controller\MarvelProxyController:
         arguments:
             $cacheDuration: '%env(int:MARVEL_API_CACHE_DURATION)%'
+
+    App\Controller\MarvelProxyV2Controller:
+        arguments:
+            $cacheDuration: '%env(int:MARVEL_API_CACHE_DURATION)%'
+
+    App\Command\FetchMarvelCharactersCommand:
+        arguments:
+            $publicKey: '%marvel_public_key%'
+            $privateKey: '%marvel_private_key%'
+
     App\Service\FavoriteService:
     App\Repository\FavoriteRepository:
 
@@ -34,5 +45,6 @@ services:
             $publicKey: '%env(MARVEL_PUBLIC_KEY)%'
             $privateKey: '%env(MARVEL_PRIVATE_KEY)%'
             $baseUrl: '%env(MARVEL_API_BASE_URL)%'
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

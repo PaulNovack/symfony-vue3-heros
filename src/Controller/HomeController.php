@@ -25,14 +25,14 @@ class HomeController extends AbstractController
     #[Route('/marvel', name: 'app_marvel')]
     public function index(Request $request, SessionInterface $session): Response
     {
-        $ipAddress = $request->getClientIp();
+
 
         if (!$session->has('user_id')) {
+            $ipAddress = $request->getClientIp();
             $user = new User();
             $user->setIpAddress($ipAddress);
             $user->setSessionId($session->getId());
             $user->setName('Guest '.uniqid());
-
             $this->entityManager->persist($user);
             $this->entityManager->flush();
             $session->set('user_id', $user->getId());

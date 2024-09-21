@@ -39,6 +39,7 @@
       :action-type="actionType"
       :heros="heros"
       :loading="loading"
+      :limit="limit"
       :selectedFavorites="AddToFavoriteHeros"
       @addFavorite="HandleHeroChecked"
       @removeFavorite="handleHeroRemove"
@@ -53,7 +54,7 @@
 <script lang="ts">
 import { defineComponent, onMounted, ref } from "vue";
 import {
-  fetchMarvelCharacterById,
+  fetchMarvelCharacterByIds,
   fetchMarvelCharacters,
 } from "../services/marvelApiService";
 import { MarvelCharacter } from "../interfaces/marvelApiTypes.ts";
@@ -98,6 +99,7 @@ export default defineComponent({
     const heros = ref<MarvelCharacter[]>([]);
     const loading = ref(false);
     const error = ref("");
+    const limit = ref<number>(100);
     const addFavoriteError = ref("");
     const searchTerm = ref("");
     const selectedFavoriteHeroIds = ref<number[]>([]);
@@ -118,7 +120,7 @@ export default defineComponent({
       error.value = "";
       heros.value = [];
       try {
-        const params = { limit: 100, ...(term && { nameStartsWith: term }) };
+        const params = { limit: limit.value, ...{ nameStartsWith: term } };
         const response = await fetchMarvelCharacters(params);
         heros.value = response.data.results;
       } catch (err) {
@@ -129,25 +131,17 @@ export default defineComponent({
     };
 
     const fetchAllHeroes = async () => {
-      const batchSize = 10; // Set the batch size limit
-      const heroIds = selectedFavoriteHeroIds.value;
-      let heroResults: MarvelCharacter[] = [];
+      const heroIds = selectedFavoriteHeroIds.value.join(","); // Create a comma-separated list of IDs
+      if(heroIds != ''){
+        try {
+          // Fetch all heroes in a single API call using the new service
+          const response = await fetchMarvelCharacterByIds(heroIds); // Assuming this new service exists
+          const heroResults = response.data.results; // Extract the results from the response
 
-      try {
-        for (let i = 0; i < heroIds.length; i += batchSize) {
-          const batch = heroIds.slice(i, i + batchSize); // Create a batch of hero IDs
-          const heroPromises = batch.map((heroId) =>
-            fetchMarvelCharacterById(heroId).then(
-              (response) => response.data.results[0],
-            ),
-          );
-          const batchResults = await Promise.all(heroPromises); // Fetch the heroes for this batch
-          heroResults = [...heroResults, ...batchResults]; // Accumulate the results
+          heros.value = [...heros.value, ...heroResults]; // Update the heroes state with all the results
+        } catch (err) {
+          error.value = `Error fetching heroes: ${handleError(err, "Failed to fetch heroes.")}`;
         }
-
-        heros.value = [...heros.value, ...heroResults]; // Update the heroes state with all the results
-      } catch (err) {
-        error.value = `Error fetching heroes: ${handleError(err, "Failed to fetch heroes.")}`;
       }
     };
 
@@ -172,7 +166,7 @@ export default defineComponent({
 
     const debouncedSearch = debounce((term: string) => {
       handleSearch(term);
-    }, 750);
+    }, 300);
 
     const fetchFavorites = async () => {
       try {
@@ -323,6 +317,7 @@ export default defineComponent({
       favoriteListName,
       actionType,
       getAllSearch,
+      limit,
     };
   },
 });

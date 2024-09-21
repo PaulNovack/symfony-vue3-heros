@@ -17,7 +17,10 @@
           <strong>Tailwind CSS</strong> for utility-first styling. Comprehensive
           testing is enabled with <strong>Cypress</strong>.
         </p>
-        <p>To run successfully should have installed npm version 10.8.2 and node version 20.17.0 at minimum</p>
+        <p>
+          To run successfully should have installed npm version 10.8.2 and node
+          version 20.17.0 at minimum
+        </p>
         <div class="text-left">
           <p class="text-sm text-black sm:text-base">
             Code formatting and linting are handled by Prettier and ESLint.
@@ -51,7 +54,8 @@
           </li>
         </ul>
         <p class="py-2 text-sm text-black sm:text-base">
-          End-to-end (e2e) and API testing are implemented using <strong>Cypress</strong>.
+          End-to-end (e2e) and API testing are implemented using
+          <strong>Cypress</strong>.
         </p>
         <ul class="py-2 text-left text-sm text-black sm:text-base">
           <li class="py-2">
@@ -81,7 +85,10 @@
             <strong>PHPStan</strong>, and testing is handled with
             <strong>Pest3</strong>.
           </p>
-          <p>To run successfully should have installed php 8.2 and all the necessary extensions for a symfony application.</p>
+          <p>
+            To run successfully should have installed php 8.2 and all the
+            necessary extensions for a symfony application.
+          </p>
         </div>
         <ul class="py-2 text-left text-sm text-black sm:text-base">
           <li class="py-2">

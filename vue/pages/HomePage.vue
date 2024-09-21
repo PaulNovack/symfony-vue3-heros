@@ -1,7 +1,9 @@
 <template>
   <div class="home-container">
     <div class="hero-section">
-      <h2 class="text-red-500 text-5xl font-bold">Your Marvel Heroes Favorites</h2>
+      <h2 class="text-red-500 text-5xl font-bold">
+        Your Marvel Heroes Favorites
+      </h2>
       <p class="hero-subtitle">
         Discover and organize your favorite Marvel Heroes.
       </p>

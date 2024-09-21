@@ -64,7 +64,6 @@ class FavoriteController extends AbstractController
     public function listFavorites(): JsonResponse
     {
         $user = $this->getCurrentUser();
-
         if (!$user) {
             return new JsonResponse(['error' => 'User not found in session.'], 404);
         }
@@ -77,6 +76,7 @@ class FavoriteController extends AbstractController
     private function getCurrentUser(): ?User
     {
         $session = $this->requestStack->getSession();
+
         $userId = $session->get('user_id');
 
         return $this->favoriteService->getCurrentUser($userId);

@@ -14,6 +14,10 @@
       <span v-if="!loading && heros.length > 0"
         >{{ heros.length }} heroes found</span
       >
+      <span v-if="heros.length == limit">
+        <br />You may want to narrow your search there may be more records
+        limiting to {{ limit }} records.
+      </span>
       <span
         class="mt-8"
         v-if="
@@ -33,7 +37,7 @@
         "
       >
         <br />Type something in search to get list of heroes to add or click
-        "Get All" to get list of first 100 heros"
+        "Get All" to get list of first {{ limit }} heros"
       </span>
     </div>
 
@@ -127,6 +131,10 @@ export default defineComponent({
     selectedFavorites: {
       type: Array as PropType<number[]>,
       default: () => [],
+    },
+    limit: {
+      type: Number,
+      require: true,
     },
   },
   emits: ["addFavorite", "removeFavorite"],

@@ -16,9 +16,7 @@
       <!-- Updated Get All Button -->
       <button
         @click="handleGetAll"
-        class="bg-red-500 hover:bg-red-700 text-white text-base py-1.5 px-4
-        rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-red-500
-        focus:ring-opacity-50 whitespace-nowrap"
+        class="bg-red-500 hover:bg-red-700 text-white text-base py-1.5 px-4 rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50 whitespace-nowrap"
       >
         Search to Get All
       </button>
