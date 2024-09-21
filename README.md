@@ -10,6 +10,8 @@ To simplify set up this simply uses sqlite3 so no database set up is needed.
 
 To run the application put a marvel api key in the .env file first
 
+run cp .env.example .env  and then fill in the keys.
+
 Open 2 terminals at root of application
 
 Terminal 1:
