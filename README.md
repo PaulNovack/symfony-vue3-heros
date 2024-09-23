@@ -1,6 +1,6 @@
 # Heros Application
 
-
+V2 is running at http://3.144.142.248/
 
 - This is version v1-slowfetch branch
 - Recommended to run v2-localcache for a much more responsive web application
