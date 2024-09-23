@@ -116,17 +116,19 @@ export default defineComponent({
 
     // Fetch heroes from Marvel API
     const fetchHeroes = async (term = "") => {
-      loading.value = true;
-      error.value = "";
-      heros.value = [];
-      try {
-        const params = { limit: limit.value, ...{ nameStartsWith: term } };
-        const response = await fetchMarvelCharacters(params);
-        heros.value = response.data.results;
-      } catch (err) {
-        error.value = `Error fetching heroes: ${handleError(err, "An unknown error occurred fetching heroes.")}`;
-      } finally {
-        loading.value = false;
+      if(term != ''){
+        loading.value = true;
+        error.value = "";
+        heros.value = [];
+        try {
+          const params = { limit: limit.value, ...{ nameStartsWith: term } };
+          const response = await fetchMarvelCharacters(params);
+          heros.value = response.data.results;
+        } catch (err) {
+          error.value = `Error fetching heroes: ${handleError(err, "An unknown error occurred fetching heroes.")}`;
+        } finally {
+          loading.value = false;
+        }
       }
     };
 
