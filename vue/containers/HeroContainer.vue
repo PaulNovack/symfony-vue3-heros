@@ -166,7 +166,7 @@ export default defineComponent({
 
     const debouncedSearch = debounce((term: string) => {
       handleSearch(term);
-    }, 300);
+    }, 750);
 
     const fetchFavorites = async () => {
       try {
