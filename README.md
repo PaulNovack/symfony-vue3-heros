@@ -1,5 +1,7 @@
 # Heros Application
 
+V2 is running at http://3.144.142.248/
+
 ### This is the v2-localcache branch install instructions are different than v1
 git 
 Open in  browser: http://localhost:8000 !!
