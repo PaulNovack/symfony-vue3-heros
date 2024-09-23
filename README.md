@@ -35,6 +35,10 @@ Terminal 2:
 
 run: composer update
 
+run: php bin/console make:migration
+
+run: php bin/console doctrine:migrations:migrate
+
 then run: composer serve
 
 #### Using these commands to start the front and back ensures the application is running on correct ports to communicate!!
