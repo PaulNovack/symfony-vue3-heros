@@ -1,8 +1,13 @@
 # Heros Application
 
-This is version v1-slowfetch branch
 
-Recommended to run v2-localcache for a much more responsive web application
+
+- This is version v1-slowfetch branch
+- Recommended to run v2-localcache for a much more responsive web application
+
+Recommended to run v2-localcache for a much more responsive web application v2 addresses sometimes slow api responses from marvel API.
+
+https://github.com/PaulNovack/symfony-vue3-heros/tree/v2-localcache
 
 Open in  browser: http://localhost:8000 !!
 
