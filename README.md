@@ -1,5 +1,9 @@
 # Heros Application
 
+This is version v1-slowfetch branch
+
+Recommended to run v2-localcache for a much more responsive web application
+
 Open in  browser: http://localhost:8000 !!
 
 NOT!  http://127.0.0.1:8000
