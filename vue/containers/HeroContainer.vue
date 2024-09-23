@@ -39,6 +39,7 @@
       :action-type="actionType"
       :heros="heros"
       :loading="loading"
+      :limit="limit"
       :selectedFavorites="AddToFavoriteHeros"
       @addFavorite="HandleHeroChecked"
       @removeFavorite="handleHeroRemove"
@@ -98,6 +99,7 @@ export default defineComponent({
     const heros = ref<MarvelCharacter[]>([]);
     const loading = ref(false);
     const error = ref("");
+    const limit = ref<number>(100);
     const addFavoriteError = ref("");
     const searchTerm = ref("");
     const selectedFavoriteHeroIds = ref<number[]>([]);
@@ -118,7 +120,7 @@ export default defineComponent({
       error.value = "";
       heros.value = [];
       try {
-        const params = { limit: 100, ...(term && { nameStartsWith: term }) };
+        const params = { limit: limit.value, ...{ nameStartsWith: term } };
         const response = await fetchMarvelCharacters(params);
         heros.value = response.data.results;
       } catch (err) {
@@ -162,12 +164,6 @@ export default defineComponent({
       } finally {
         loading.value = false;
       }
-    };
-
-    const getAllSearch = async () => {
-      actionType.value = ActionType.Search;
-      searchTerm.value = "";
-      fetchHeroes(searchTerm.value);
     };
 
     const debouncedSearch = debounce((term: string) => {
@@ -299,7 +295,6 @@ export default defineComponent({
     };
 
     onMounted(() => {
-      fetchHeroes();
       fetchFavorites();
     });
 
@@ -322,7 +317,7 @@ export default defineComponent({
       addSelectedHeroesToFavorite,
       favoriteListName,
       actionType,
-      getAllSearch,
+      limit,
     };
   },
 });

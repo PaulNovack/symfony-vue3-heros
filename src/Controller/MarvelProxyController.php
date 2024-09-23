@@ -32,7 +32,6 @@ class MarvelProxyController extends AbstractController
         // Get the client's IP address
         $ipAddress = $request->getClientIp();
 
-        // Check if the session exists and if a user is already associated
         if (!$session->has('user_id')) {
             // No user found in the session, so we create a new User
             $user = new User();

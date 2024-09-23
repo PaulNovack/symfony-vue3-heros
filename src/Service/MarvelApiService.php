@@ -29,11 +29,7 @@ class MarvelApiService
             'ts' => $ts,
             'hash' => $hash,
         ]);
-        // echo "here<br/>";
-        //   print_r($endpoint);
-        //   echo "<br/>here<br/>";
-        //   print_r($params);
-        $response = null;
+
         if ('charactersbyid' == $endpoint) {
             $hero_id = $params['id'];
             unset($params['id']);
