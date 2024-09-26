@@ -1,6 +1,6 @@
 <script lang="ts">
 import { ref } from "vue";
-import { useRoute } from "vue-router"; // Import useRoute from vue-router
+import { useRoute } from "vue-router";
 
 export default {
   setup() {
@@ -15,15 +15,23 @@ export default {
     // Get the current route
     const route = useRoute();
 
+    // Define menu options as an array of objects
+    const menuItems = [
+
+      { name: "Home", path: "/" },
+      { name: "Hero Listing", path: "/heroes" },
+      { name: "About", path: "/about" },
+    ];
+
     return {
       isMobileMenuOpen,
       toggleMobileMenu,
-      route, // Make the route available in the template
+      route,
+      menuItems, // Return the menu items for use in the template
     };
   },
 };
 </script>
-
 <template>
   <!-- Main Menu -->
   <nav class="bg-red-500 text-white px-4 py-3 w-full fixed top-0 left-0 z-50">
@@ -33,8 +41,8 @@ export default {
       <!-- Mobile menu button -->
       <div class="block lg:hidden">
         <button
-          @click="toggleMobileMenu"
-          class="my-0 text-xl text-red-900 focus:outline-none"
+            @click="toggleMobileMenu"
+            class="my-0 text-xl text-red-900 focus:outline-none"
         >
           ☰
         </button>
@@ -43,58 +51,28 @@ export default {
       <!-- Desktop menu items -->
       <div class="hidden lg:flex space-x-4">
         <a
-          href="/"
-          :class="[
+            v-for="item in menuItems"
+            :key="item.path"
+            :href="item.path"
+            :class="[
             'hover:bg-red-700 px-3 py-2 rounded-md',
-            route.path === '/' ? 'bg-red-700 text-black' : 'text-white',
+            route.path === item.path ? 'bg-red-700 text-black' : 'text-white',
           ]"
-          >Home</a
-        >
-        <a
-          href="/heros"
-          :class="[
-            'hover:bg-red-700 px-3 py-2 rounded-md',
-            route.path === '/heros' ? 'bg-red-700 text-black' : 'text-white',
-          ]"
-          >Hero Listing</a
-        >
-        <a
-          href="/about"
-          :class="[
-            'hover:bg-red-700 px-3 py-2 rounded-md',
-            route.path === '/about' ? 'bg-red-700 text-black' : 'text-white',
-          ]"
-          >About</a
-        >
+        >{{ item.name }}</a>
       </div>
     </div>
 
     <!-- Mobile menu -->
     <div v-if="isMobileMenuOpen" class="lg:hidden">
       <a
-        href="/"
-        :class="[
+          v-for="item in menuItems"
+          :key="item.path"
+          :href="item.path"
+          :class="[
           'block px-4 py-2 hover:bg-red-700',
-          route.path === '/' ? 'bg-red-700 text-black' : 'text-white',
+          route.path === item.path ? 'bg-red-700 text-black' : 'text-white',
         ]"
-        >Home</a
-      >
-      <a
-        href="/heros"
-        :class="[
-          'block px-4 py-2 hover:bg-red-700',
-          route.path === '/heros' ? 'bg-red-700 text-black' : 'text-white',
-        ]"
-        >Hero Listing</a
-      >
-      <a
-        href="/about"
-        :class="[
-          'block px-4 py-2 hover:bg-red-700',
-          route.path === '/about' ? 'bg-red-700 text-black' : 'text-white',
-        ]"
-        >About</a
-      >
+      >{{ item.name }}</a>
     </div>
   </nav>
 
