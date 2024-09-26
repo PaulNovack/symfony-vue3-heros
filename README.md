@@ -27,7 +27,7 @@ run: npm update
 
 run: cd tools/php-cs-fixer
 
-run: npm update
+run: composer update
 
 run: cd ../../
 

@@ -1,26 +1,26 @@
 <?php
 
-use App\Entity\Favorite;
 use App\Entity\User;
-use App\Repository\UserRepository;
 use App\Service\FavoriteHeroesService;
+use App\Service\UserService;
+use App\Controller\FavoriteHeroesController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
+use Mockery;
+use Exception;
 
 beforeEach(function () {
-    // Mock session and request stack
-    $this->session = Mockery::mock(Symfony\Component\HttpFoundation\Session\SessionInterface::class);
-    $this->requestStack = Mockery::mock(RequestStack::class);
-    $this->requestStack->shouldReceive('getSession')->andReturn($this->session);
+    // Mock UserService
+    $this->userService = Mockery::mock(UserService::class);
 
-    // Mock UserRepository and service
-    $this->userRepository = Mockery::mock(UserRepository::class);
+    // Mock FavoriteHeroesService
     $this->favoriteHeroesService = Mockery::mock(FavoriteHeroesService::class);
 
+    // Mock the Request object
+    $this->request = Mockery::mock(Request::class);
+
     // Create the controller with mocks
-    $this->controller = new App\Controller\FavoriteHeroesController(
-        $this->requestStack,
-        $this->userRepository,
+    $this->controller = new FavoriteHeroesController(
+        $this->userService,
         $this->favoriteHeroesService
     );
 });
@@ -28,14 +28,20 @@ beforeEach(function () {
 test('returns error when removing a non-existing hero from a favorite', function () {
     $user = new User();
 
-    // Set up session expectations
-    $this->session->shouldReceive('get')->with('user_id')->andReturn(1);
-    $this->userRepository->shouldReceive('find')->with(1)->andReturn($user);
+    // Set up UserService to return a user
+    $this->userService->shouldReceive('getCurrentUser')
+        ->with($this->request)
+        ->andReturn($user);
 
-    // Simulate favorite not found
-    $this->favoriteHeroesService->shouldReceive('removeHeroFromFavorite')->andThrow(new Exception('Hero not found'));
+    // Simulate favorite not found by throwing an exception in the service
+    $this->favoriteHeroesService->shouldReceive('removeHeroFromFavorite')
+        ->with($user, 1, 101)
+        ->andThrow(new Exception('Hero not found'));
 
-    $response = $this->controller->removeHeroFromFavorite(1, 101);
+    // Call the method and capture the response
+    $response = $this->controller->removeHeroFromFavorite(1, 101, $this->request);
+
+    // Check response status and content
     expect($response->getStatusCode())->toBe(404);
     expect(json_decode($response->getContent(), true))->toBe(['error' => 'Hero not found']);
 });

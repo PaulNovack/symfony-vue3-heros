@@ -17,10 +17,7 @@
           <strong>Tailwind CSS</strong> for utility-first styling. Comprehensive
           testing is enabled with <strong>Cypress</strong>.
         </p>
-        <p>
-          To run successfully should have installed npm version 10.8.2 and node
-          version 20.17.0 at minimum
-        </p>
+        <p>To run successfully should have installed npm version 10.8.2 and node version 20.17.0 at minimum</p>
         <div class="text-left">
           <p class="text-sm text-black sm:text-base">
             Code formatting and linting are handled by Prettier and ESLint.
