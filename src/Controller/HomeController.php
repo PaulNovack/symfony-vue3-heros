@@ -20,7 +20,7 @@ class HomeController extends AbstractController
     }
 
     #[Route('/', name: 'app_home')]
-    #[Route('/heros', name: 'app_heros')]
+    #[Route('/heroes', name: 'app_heros')]
     #[Route('/about', name: 'app_about')]
     #[Route('/marvel', name: 'app_marvel')]
     public function index(Request $request, SessionInterface $session): Response

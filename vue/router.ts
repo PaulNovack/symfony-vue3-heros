@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomePage from "./pages/HomePage.vue";
-import HerosPage from "./pages/HerosPage.vue";
+import HeroesPage from "./pages/HeroesPage.vue";
 import AboutPage from "./pages/AboutPage.vue";
 const routes = [
   {
@@ -10,9 +10,9 @@ const routes = [
     meta: { title: "Home" },
   },
   {
-    path: "/heros",
-    name: "Heros",
-    components: { default: HerosPage },
+    path: "/heroes",
+    name: "Heroes",
+    components: { default: HeroesPage },
     meta: { title: "Heros Page" },
   },
   {
