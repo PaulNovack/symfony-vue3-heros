@@ -1,19 +1,6 @@
 # Heros Application
 
-V2 is running at http://3.144.142.248/
-
-- This is version v1-slowfetch branch
-- Recommended to run v2-localcache for a much more responsive web application
-
-Recommended to run v2-localcache for a much more responsive web application v2 addresses sometimes slow api responses from marvel API.
-
-https://github.com/PaulNovack/symfony-vue3-heros/tree/v2-localcache
-
-Open in  browser: http://localhost:8000 !!
-
-NOT!  http://127.0.0.1:8000
-
-To install this application clone the repo
+### This is a special modified branch for running on paulnovack-net it is not for general use.
 
 You should be running php 8.2 with all extensions required to run a symfony application for help see symfony documentation
 
@@ -32,7 +19,7 @@ run: npm update
 
 run: cd tools/php-cs-fixer
 
-run: npm update
+run: composer update
 
 run: cd ../../
 
@@ -47,6 +34,10 @@ run: composer update
 run: php bin/console make:migration
 
 run: php bin/console doctrine:migrations:migrate
+
+* Command below loads the db for marvel characters
+
+run: php bin/console app:fetch-marvel-characters
 
 then run: composer serve
 
