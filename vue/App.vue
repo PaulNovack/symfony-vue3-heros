@@ -43,26 +43,34 @@ export default {
       <!-- Desktop menu items -->
       <div class="hidden lg:flex space-x-4">
         <a
-          href="/"
-          :class="[
+            href="/"
+            :class="[
             'hover:bg-red-700 px-3 py-2 rounded-md',
             route.path === '/' ? 'bg-red-700 text-black' : 'text-white',
+          ]"
+        >PaulNovack.net Home</a
+        >
+        <a
+          href="/heroes-app/"
+          :class="[
+            'hover:bg-red-700 px-3 py-2 rounded-md',
+            route.path === '/heroes-app/' ? 'bg-red-700 text-black' : 'text-white',
           ]"
           >Home</a
         >
         <a
-          href="/heros"
+          href="/heroes-app/heroes"
           :class="[
             'hover:bg-red-700 px-3 py-2 rounded-md',
-            route.path === '/heros' ? 'bg-red-700 text-black' : 'text-white',
+            route.path === '/heroes-app/heroes' ? 'bg-red-700 text-black' : 'text-white',
           ]"
           >Hero Listing</a
         >
         <a
-          href="/about"
+          href="/heroes-app/about"
           :class="[
             'hover:bg-red-700 px-3 py-2 rounded-md',
-            route.path === '/about' ? 'bg-red-700 text-black' : 'text-white',
+            route.path === '/heroes-app/about' ? 'bg-red-700 text-black' : 'text-white',
           ]"
           >About</a
         >

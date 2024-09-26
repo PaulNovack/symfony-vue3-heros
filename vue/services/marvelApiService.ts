@@ -6,7 +6,7 @@ import {
   MarvelCharacter,
 } from "../interfaces/marvelApiTypes.ts";
 
-const MARVEL_CHARACTERS_URL = "http://localhost:8000/api/marvel/";
+const MARVEL_CHARACTERS_URL = "http://localhost/heroes-app/apiv2/marvel/";
 
 export const fetchMarvelCharacters = async (
   params: MarvelCharacterQueryParams,
@@ -15,27 +15,26 @@ export const fetchMarvelCharacters = async (
     const response = await axios.get<MarvelApiResponse<MarvelCharacter>>(
       `${MARVEL_CHARACTERS_URL}characters`,
       {
-        params, // Include the params in the request
+        params, // Send the params with the request, including nameStartsWith and limit
       },
     );
-
     return response.data;
   } catch (err) {
     throw new Error("Failed to fetch Marvel characters: " + err);
   }
 };
 
-export const fetchMarvelCharacterById = async (
-  characterId: number,
+export const fetchMarvelCharacterByIds = async (
+  characterIds: string,
 ): Promise<MarvelApiResponse<MarvelCharacter>> => {
   try {
     const response = await axios.get<MarvelApiResponse<MarvelCharacter>>(
-      `${MARVEL_CHARACTERS_URL}charactersbyid/?id=${characterId}`,
+      `${MARVEL_CHARACTERS_URL}charactersById/${characterIds}`, // Updated endpoint format
     );
     return response.data;
   } catch (err) {
     throw new Error(
-      `Failed to fetch Marvel character with ID ${characterId}: ` + err,
+      `Failed to fetch Marvel characters swith IDs ${characterIds}: ` + err,
     );
   }
 };

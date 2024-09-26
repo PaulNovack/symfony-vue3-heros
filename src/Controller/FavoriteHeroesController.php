@@ -2,46 +2,37 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
-use App\Repository\UserRepository;
 use App\Service\FavoriteHeroesService;
+use App\Service\UserService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class FavoriteHeroesController extends AbstractController
 {
-    private RequestStack $requestStack;
-    private UserRepository $userRepository;
+    private UserService $userService;
     private FavoriteHeroesService $favoriteHeroesService;
 
     public function __construct(
-        RequestStack $requestStack,
-        UserRepository $userRepository,
+        UserService $userService,
         FavoriteHeroesService $favoriteHeroesService,
     ) {
-        $this->requestStack = $requestStack;
-        $this->userRepository = $userRepository;
+        $this->userService = $userService;
         $this->favoriteHeroesService = $favoriteHeroesService;
     }
 
     #[Route('/api/favorite/{favoriteId}/heroes', name: 'add_favorite_heroes', methods: ['POST'])]
-    public function addHeroesToFavorite(int $favoriteId, Request $request): JsonResponse
+    public function addHeroesToFavorite(int $favoriteId, Request $request, SessionInterface $session): JsonResponse
     {
-        $user = $this->getCurrentUser();
-        if (!$user) {
-            return new JsonResponse(['error' => 'User not authenticated.'], 401);
-        }
-
+        $user = $this->userService->getCurrentUser($request);
         $data = json_decode($request->getContent(), true);
         $heroIds = $data['heroes'] ?? [];
 
         if (empty($heroIds)) {
             return new JsonResponse(['error' => 'Heroes list is empty'], 400);
         }
-
         try {
             $addedHeroes = $this->favoriteHeroesService->addHeroesToFavorite($user, $favoriteId, $heroIds);
 
@@ -55,12 +46,9 @@ class FavoriteHeroesController extends AbstractController
     }
 
     #[Route('/api/favorite/{favoriteId}/heroes/{heroId}', name: 'remove_favorite_hero', methods: ['DELETE'])]
-    public function removeHeroFromFavorite(int $favoriteId, int $heroId): JsonResponse
+    public function removeHeroFromFavorite(int $favoriteId, int $heroId, Request $request): JsonResponse
     {
-        $user = $this->getCurrentUser();
-        if (!$user) {
-            return new JsonResponse(['error' => 'User not authenticated.'], 401);
-        }
+        $user = $this->userService->getCurrentUser($request);
 
         try {
             $this->favoriteHeroesService->removeHeroFromFavorite($user, $favoriteId, $heroId);
@@ -69,17 +57,5 @@ class FavoriteHeroesController extends AbstractController
         } catch (\Exception $e) {
             return new JsonResponse(['error' => $e->getMessage()], 404);
         }
-    }
-
-    private function getCurrentUser(): ?User
-    {
-        $session = $this->requestStack->getSession();
-        $userId = $session->get('user_id');
-
-        if (!$userId) {
-            return null;
-        }
-
-        return $this->userRepository->find($userId);
     }
 }

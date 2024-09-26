@@ -4,6 +4,7 @@
       <h2 class="text-red-500 text-5xl font-bold">
         Your Marvel Heroes Favorites
       </h2>
+      <p class="hero-subtitle">The code for this web application can be found at <a href="https://github.com/PaulNovack/symfony-vue3-heros" target="_blank">https://github.com/PaulNovack/symfony-vue3-heros</a></p>
       <p class="hero-subtitle">
         Discover and organize your favorite Marvel Heroes.
       </p>

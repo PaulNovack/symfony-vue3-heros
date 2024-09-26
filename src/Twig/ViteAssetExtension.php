@@ -38,7 +38,7 @@ class ViteAssetExtension extends AbstractExtension
         }
 
         // Return the path to the JS file (e.g., 'assets/main-D2Zdwx3B.js')
-        return '/build/'.$this->manifest[$asset]['file'];
+        return '/heroes-app/build/'.$this->manifest[$asset]['file'];
     }
 
     /**

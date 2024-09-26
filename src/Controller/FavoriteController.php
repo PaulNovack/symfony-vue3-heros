@@ -2,33 +2,33 @@
 
 namespace App\Controller;
 
-use App\Entity\User; // Make sure to import the correct namespace
+// Make sure to import the correct namespace
 use App\Service\FavoriteService;
+use App\Service\UserService;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class FavoriteController extends AbstractController
 {
-    private $favoriteService;
-    private $requestStack;
+    private FavoriteService $favoriteService;
+    private UserService $userService;
 
-    public function __construct(FavoriteService $favoriteService, RequestStack $requestStack)
+    public function __construct(FavoriteService $favoriteService,
+        UserService $userService)
     {
         $this->favoriteService = $favoriteService;
-        $this->requestStack = $requestStack;
+        $this->userService = $userService;
     }
 
     #[Route('/api/favorite', name: 'create_favorite', methods: ['POST'])]
-    public function createFavorite(Request $request): JsonResponse
+    public function createFavorite(Request $request, SessionInterface $session): JsonResponse
     {
-        $user = $this->getCurrentUser();
-
-        if (!$user) {
-            return new JsonResponse(['error' => 'User not found in session.'], 404);
-        }
+        $user = $this->userService->getCurrentUser($request);
 
         $data = json_decode($request->getContent(), true);
         $name = $data['name'] ?? null;
@@ -43,13 +43,9 @@ class FavoriteController extends AbstractController
     }
 
     #[Route('/api/favorite/{id}', name: 'delete_favorite', methods: ['DELETE'])]
-    public function deleteFavorite(int $id): JsonResponse
+    public function deleteFavorite(int $id, Request $request): JsonResponse
     {
-        $user = $this->getCurrentUser();
-
-        if (!$user) {
-            return new JsonResponse(['error' => 'User not found in session.'], 404);
-        }
+        $user = $this->userService->getCurrentUser($request);
 
         $deleted = $this->favoriteService->deleteFavorite($user, $id);
 
@@ -61,24 +57,12 @@ class FavoriteController extends AbstractController
     }
 
     #[Route('/api/favorites', name: 'list_favorites', methods: ['GET'])]
-    public function listFavorites(): JsonResponse
+    public function listFavorites(Request $request): JsonResponse
     {
-        $user = $this->getCurrentUser();
-
-        if (!$user) {
-            return new JsonResponse(['error' => 'User not found in session.'], 404);
-        }
+        $user = $this->userService->getCurrentUser($request);
 
         $favoritesData = $this->favoriteService->listFavorites($user);
 
         return new JsonResponse($favoritesData, 200);
-    }
-
-    private function getCurrentUser(): ?User
-    {
-        $session = $this->requestStack->getSession();
-        $userId = $session->get('user_id');
-
-        return $this->favoriteService->getCurrentUser($userId);
     }
 }
