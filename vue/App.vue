@@ -33,8 +33,8 @@ export default {
       <!-- Mobile menu button -->
       <div class="block lg:hidden">
         <button
-          @click="toggleMobileMenu"
-          class="my-0 text-xl text-red-900 focus:outline-none"
+            @click="toggleMobileMenu"
+            class="my-0 text-xl text-red-900 focus:outline-none"
         >
           ☰
         </button>
@@ -51,28 +51,28 @@ export default {
         >PaulNovack.net Home</a
         >
         <a
-          href="/heroes-app/"
-          :class="[
+            href="/heroes-app/"
+            :class="[
             'hover:bg-red-700 px-3 py-2 rounded-md',
             route.path === '/heroes-app/' ? 'bg-red-700 text-black' : 'text-white',
           ]"
-          >Home</a
+        >Home</a
         >
         <a
-          href="/heroes-app/heroes"
-          :class="[
+            href="/heroes-app/heroes"
+            :class="[
             'hover:bg-red-700 px-3 py-2 rounded-md',
             route.path === '/heroes-app/heroes' ? 'bg-red-700 text-black' : 'text-white',
           ]"
-          >Hero Listing</a
+        >Hero Listing</a
         >
         <a
-          href="/heroes-app/about"
-          :class="[
+            href="/heroes-app/about"
+            :class="[
             'hover:bg-red-700 px-3 py-2 rounded-md',
             route.path === '/heroes-app/about' ? 'bg-red-700 text-black' : 'text-white',
           ]"
-          >About</a
+        >About</a
         >
       </div>
     </div>
@@ -80,28 +80,36 @@ export default {
     <!-- Mobile menu -->
     <div v-if="isMobileMenuOpen" class="lg:hidden">
       <a
-        href="/"
-        :class="[
+          href="/"
+          :class="[
           'block px-4 py-2 hover:bg-red-700',
           route.path === '/' ? 'bg-red-700 text-black' : 'text-white',
         ]"
-        >Home</a
+      >paulnovack.net Home</a
       >
       <a
-        href="/heros"
-        :class="[
+          href="/heroes-app/"
+          :class="[
+          'block px-4 py-2 hover:bg-red-700',
+          route.path === '/' ? 'bg-red-700 text-black' : 'text-white',
+        ]"
+      >Home</a
+      >
+      <a
+          href="/heroes-app/heros"
+          :class="[
           'block px-4 py-2 hover:bg-red-700',
           route.path === '/heros' ? 'bg-red-700 text-black' : 'text-white',
         ]"
-        >Hero Listing</a
+      >Hero Listing</a
       >
       <a
-        href="/about"
-        :class="[
+          href="/heroes-app/about"
+          :class="[
           'block px-4 py-2 hover:bg-red-700',
           route.path === '/about' ? 'bg-red-700 text-black' : 'text-white',
         ]"
-        >About</a
+      >About</a
       >
     </div>
   </nav>

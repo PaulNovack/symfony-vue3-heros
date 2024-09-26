@@ -10,7 +10,7 @@ const routes = [
     meta: { title: "Home" },
   },
   {
-    path: "/heroes-app//heroes",
+    path: "/heroes-app/heroes",
     name: "Heroes",
     components: { default: HeroesPage },
     meta: { title: "Heroes Page" },
