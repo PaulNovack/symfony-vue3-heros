@@ -6,7 +6,7 @@ import {
   MarvelCharacter,
 } from "../interfaces/marvelApiTypes.ts";
 
-const MARVEL_CHARACTERS_URL = "http://localhost/heroes-app/apiv2/marvel/";
+const MARVEL_CHARACTERS_URL = "/heroes-app/apiv2/marvel/";
 
 export const fetchMarvelCharacters = async (
   params: MarvelCharacterQueryParams,

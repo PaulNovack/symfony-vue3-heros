@@ -6,7 +6,7 @@ import {
   AddHeroesToFavoritePayload,
 } from "../interfaces/favoriteApiTypes.ts";
 
-const FAVORITE_BASE_URL = "http://localhost/heroes-app/api/favorite";
+const FAVORITE_BASE_URL = "/heroes-app/api/favorite";
 axios.defaults.withCredentials = true;
 
 // Create a new favorite

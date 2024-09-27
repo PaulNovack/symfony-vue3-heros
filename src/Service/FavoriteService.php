@@ -26,6 +26,7 @@ class FavoriteService
 
     public function createFavorite(User $user, string $name): Favorite
     {
+
         $favorite = new Favorite();
         $favorite->setName($name);
         $favorite->setUser($user);

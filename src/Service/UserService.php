@@ -29,9 +29,13 @@ class UserService
     {
         $session = $this->requestStack->getSession();
         $userId = $session->get('user_id');
-
         if ($userId) {
-            return $this->userRepository->find($userId);
+            $user = $this->userRepository->find($userId);
+            if($user !== null){
+                return $user;
+            } else {
+                return $this->createGuestUser($request);
+            }
         }
 
         return $this->createGuestUser($request);
@@ -50,7 +54,6 @@ class UserService
         $this->entityManager->flush();
 
         $session->set('user_id', $user->getId());
-
         return $user;
     }
 }

@@ -28,8 +28,8 @@ class FavoriteController extends AbstractController
     #[Route('/api/favorite', name: 'create_favorite', methods: ['POST'])]
     public function createFavorite(Request $request, SessionInterface $session): JsonResponse
     {
-        $user = $this->userService->getCurrentUser($request);
 
+        $user = $this->userService->getCurrentUser($request);
         $data = json_decode($request->getContent(), true);
         $name = $data['name'] ?? null;
 
