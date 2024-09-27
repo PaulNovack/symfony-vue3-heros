@@ -191,6 +191,8 @@ export default defineComponent({
       ) {
         addFavoriteError.value = `The favorite name "${favorite.name}" already exists.`;
         return;
+      } else {
+        addFavoriteError.value = '';
       }
       try {
         await createFavorite({ name: favorite.name });

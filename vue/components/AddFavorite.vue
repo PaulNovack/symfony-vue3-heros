@@ -39,6 +39,7 @@ export default defineComponent({
     const errorMessage = ref<string>("");
 
     const addFavorite = () => {
+      errorMessage.value = "";
       if (newFavorite.value.trim() !== "") {
         const newItem: Favorite = {
           id: null,
@@ -47,8 +48,8 @@ export default defineComponent({
           created_at: null,
         };
         emit("favoriteAdded", newItem);
-        newFavorite.value = ""; // Clear input
-        errorMessage.value = ""; // Clear error message
+        newFavorite.value = "";
+        errorMessage.value = "";
       } else {
         errorMessage.value = "Please enter a valid favorite it cannot be blank"; // Set error message
       }
